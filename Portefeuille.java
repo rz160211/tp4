@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Modele;
 
 import Controleur.*;
@@ -10,80 +15,98 @@ import java.util.HashMap;
  */
 public class Portefeuille {
     
-private HashMap<String,Fonds> hmapFonds = new HashMap<>();
-private HashMap<String,Instrument> hmapInstrument = new HashMap<>();
+    public HashMap<String,Fonds> hmapFonds;
+    public HashMap<String,Instrument> hmapInstrument;
 
-public Portefeuille(){
-}
+        public Fonds rechercheFonds(String key) throws FondsInexistant {
 
-public Fonds rechercheFonds(String key) throws FondsInexistant {
-   
-    // si la cle existe 
-    if (hmapFonds.containsKey(key)) {      
-       // recuperer la valeur de la hmapFonds associé à la cle passé en param
-        Fonds value = hmapFonds.get(key);  
-        return value;       
+        // si la cle existe 
+        if (hmapFonds.containsKey(key)) {      
+           // recuperer la valeur de la hmapFonds associÃ© Ã  la cle passÃ© en param
+            Fonds value = hmapFonds.get(key);  
+            return value;       
+        }
+        else{
+            return null; //mettre l'exception ici
+        }
+
     }
-    else{
-        return null; //mettre l'exception ici
-    }
-    
-}
 
-public ArrayList<Fonds> rechercheInstrument(String key){
-    
-    Instrument collection = new Instrument();
-    
-    if (hmapInstrument.containsKey(key)) {
-       // si la cle existe
-       // recuperer la valeur de la hmapFonds associé à la cle passé en param
-        collection = hmapInstrument.get(key);  
-        return collection.getStringList();       
-    }
-    else{
-        return null; //mettre l'exception ici
-    }
-    
-}
+    public ArrayList<Fonds> rechercheInstrument(String key){
 
-public void ajoutHmapFonds(String key, Fonds fonds){
-    hmapFonds.put(key, fonds);
-}
+        Instrument collection = new Instrument();
 
-public void ajoutFondsInstrument(String key, double montant) throws FondsInexistant
-{
-    Fonds fonds = new Fonds() ;
-    fonds.setAmount(montant) ;
-    
-    if(rechercheFonds(key)!=null)
+        if (hmapInstrument.containsKey(key)) {
+           // si la cle existe
+           // recuperer la valeur de la hmapFonds associÃ© Ã  la cle passÃ© en param
+            collection = hmapInstrument.get(key);  
+            return collection.getStringList();       
+        }
+        else{
+            return null; //mettre l'exception ici
+        }
+
+    }
+
+    public void ajoutHmapFonds(String key, Fonds fonds){
+        hmapFonds.put(key, fonds);
+    }
+
+    public void ajoutFondsInstrument(String cle, Fonds fonds) throws ExceptionExistence 
     {
-        System.out.println("Fonds existant"); //à remplacer par les exceptions
-    }
-    else
-        hmapFonds.put(key, fonds) ;
-        
-}
+        try {
+            if(rechercheInstrument(cle))
+            {
+                 Instrument instru = hmapInstrument.get(cle) ;
+                 instru.ajoutFonds(fonds);
+            }
+            else
+                throw new ExceptionExistence ("Instrument inexistant");
+        }
+        catch(ExceptionExistence e)
+        {
+            System.out.println(e.getMessage());
+        }
 
-public void supprimerHmapFond(String key) throws FondsInexistant
-{
-    if(rechercheFonds(key) != null)
+
+    }
+
+    public void supprimerHmapFond(String cle) throws ExceptionExistence 
     {
-        hmapFonds.remove(key);
+        try {
+            if(rechercheFonds(cle))
+            {
+                hmapFonds.remove(cle);
+            }
+            else
+                throw new ExceptionExistence("Fonds inexistant"); 
+        }
+        catch(ExceptionExistence e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
-    else
-        System.out.println("Fonds inexistant"); //à remplacer par les exceptions
-}
 
-public void supprimerHmapInstrument(String key)
-{
-    if(rechercheInstrument(key) != null)
+    public void supprimerHmapInstrument(String cle) throws ExceptionExistence 
     {
-        hmapInstrument.remove(key);
+        try {
+            if(rechercheInstrument(cle))
+            {
+                hmapInstrument.remove(cle);
+            }
+            else
+                throw new ExceptionExistence("Instrument inexistant"); 
+        }
+        catch(ExceptionExistence e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
-    else
-        System.out.println("Instrument inexistant"); //à remplacer par les exceptions
-}
-    
+
+    //double rechercheFonds(String){return 0;
+    //}
+    //ArrayList<Fonds> rechercheInstrument(String){}
+    //void ajoutHmapFonds(String, double){}
+
 
 }
-
