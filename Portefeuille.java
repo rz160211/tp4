@@ -15,8 +15,8 @@ import java.util.HashMap;
  */
 public class Portefeuille {
     
-    public HashMap<String,Fonds> hmapFonds;
-    public HashMap<String,Instrument> hmapInstrument;
+    public HashMap<String,Fonds> hmapFonds = new HashMap<>() ;
+    public HashMap<String,Instrument> hmapInstrument = new HashMap<>();
 
         public Fonds rechercheFonds(String key) throws FondsInexistant {
 
