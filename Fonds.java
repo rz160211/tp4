@@ -12,20 +12,18 @@ package Modele;
 public class Fonds {
     
     private double amount;
-    private String key;
+    private String key ;
     
     public Fonds(){
-        amount = 0;
-        key = "";
-    }
-    
-    public Fonds(String nom, double montant){
-        amount = montant;
-        key = nom;
+        amount = 0; key = ""; 
     }
     
     public void setAmount(double amount){
-    this.amount=amount;
+        this.amount=amount;
+    }
+    
+    public double getAmount(){
+        return this.amount;
     }
     
     public void setKey(String key){
@@ -34,10 +32,6 @@ public class Fonds {
     
     public String getKey(){
         return this.key;
-    }
-    
-    public double getAmount(){
-    return this.amount;
     }
        
 }
