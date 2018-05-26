@@ -6,6 +6,8 @@
 package Modele;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -20,14 +22,14 @@ public class Instrument {
         
     }
     
-    public ArrayList<Fonds> getStringList() {
-        return instrument;
+        void ajoutFonds(Fonds fonds){
+        instrument.add(fonds);
     }
     
-    void ajoutFonds(Fonds fonds){
-    instrument.add(fonds);
+    void tri()
+    {
+        
+        
     }
-    
-    void tri(){}
     
 }
