@@ -17,22 +17,24 @@ public class Portefeuille {
     
     public HashMap<String,Fonds> hmapFonds = new HashMap<>() ;
     public HashMap<String,Instrument> hmapInstrument = new HashMap<>();
+    
+    public Portefeuille(){
+    }
 
-        public Fonds rechercheFonds(String key) throws FondsInexistant {
+    public Fonds rechercheFonds(String key) throws ExceptionExistence {
 
         // si la cle existe 
         if (hmapFonds.containsKey(key)) {      
            // recuperer la valeur de la hmapFonds associÃ© Ã  la cle passÃ© en param
-            Fonds value = hmapFonds.get(key);  
-            return value;       
-        }
-        else{
-            return null; //mettre l'exception ici
-        }
-
+           Fonds value = hmapFonds.get(key);  
+           return value;       
+       }
+       else{
+           throw new ExceptionExistence("Fonds inexistant"); 
+       }
     }
 
-    public ArrayList<Fonds> rechercheInstrument(String key){
+    public ArrayList<Fonds> rechercheInstrument(String key) throws ExceptionExistence {
 
         Instrument collection = new Instrument();
 
@@ -43,7 +45,7 @@ public class Portefeuille {
             return collection.getStringList();       
         }
         else{
-            return null; //mettre l'exception ici
+            throw new ExceptionExistence("Instrument inexistant"); 
         }
 
     }
@@ -52,16 +54,14 @@ public class Portefeuille {
         hmapFonds.put(key, fonds);
     }
 
-    public void ajoutFondsInstrument(String cle, Fonds fonds) throws ExceptionExistence 
+    public void ajoutFondsInstrument(String cle, Fonds fonds) 
     {
         try {
-            if(rechercheInstrument(cle))
+            if(rechercheInstrument(cle) != null)
             {
                  Instrument instru = hmapInstrument.get(cle) ;
                  instru.ajoutFonds(fonds);
             }
-            else
-                throw new ExceptionExistence ("Instrument inexistant");
         }
         catch(ExceptionExistence e)
         {
@@ -71,15 +71,13 @@ public class Portefeuille {
 
     }
 
-    public void supprimerHmapFond(String cle) throws ExceptionExistence 
+    public void supprimerHmapFond(String cle) 
     {
         try {
-            if(rechercheFonds(cle))
+            if(rechercheFonds(cle) != null)
             {
                 hmapFonds.remove(cle);
             }
-            else
-                throw new ExceptionExistence("Fonds inexistant"); 
         }
         catch(ExceptionExistence e)
         {
@@ -87,26 +85,18 @@ public class Portefeuille {
         }
     }
 
-    public void supprimerHmapInstrument(String cle) throws ExceptionExistence 
+    public void supprimerHmapInstrument(String cle) 
     {
         try {
-            if(rechercheInstrument(cle))
+            if(rechercheInstrument(cle) != null)
             {
                 hmapInstrument.remove(cle);
             }
-            else
-                throw new ExceptionExistence("Instrument inexistant"); 
         }
         catch(ExceptionExistence e)
         {
             System.out.println(e.getMessage());
         }
     }
-
-    //double rechercheFonds(String){return 0;
-    //}
-    //ArrayList<Fonds> rechercheInstrument(String){}
-    //void ajoutHmapFonds(String, double){}
-
 
 }
