@@ -28,6 +28,17 @@ public class Instrument {
     instrument.add(fonds);
     }
     
-    void tri(){}
+    void tri()
+    {
+        
+        
+        for(int i = 0 ; i < instrument.size() ; i++)
+        {
+            CompareFonds comparator = new CompareFonds(instrument.get(i)) ;
+            sort(instrument, comparator) ;
+            
+        }
+        
+    }
     
 }
