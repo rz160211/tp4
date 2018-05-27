@@ -19,8 +19,8 @@ public class Instrument {
     private String key;
     
     public Instrument(String key){
+        this.instrument = new ArrayList();
         this.key = key ;
-        this.instrument = new ArrayList<Fonds>();
     }
     
     public ArrayList<Fonds> getStringList() {
@@ -28,7 +28,7 @@ public class Instrument {
     }
     
     public void ajoutFonds(Fonds fonds){
-    instrument.add(fonds);
+        instrument.add(fonds);
     }
     
     public void tri()

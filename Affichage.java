@@ -89,7 +89,7 @@ public class Affichage {
                 for(int j = 0 ; j < instruList.size() ; j++)
                 {
                     somme += instruList.get(j).getAmount();
-                    if(instruList.get(j).getKey() == key)
+                    if(instruList.get(j).getKey().equals(key))
                     {
                         fondsPlace = true;
                     }
