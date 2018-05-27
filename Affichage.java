@@ -50,7 +50,7 @@ public class Affichage {
         for (HashMap.Entry<String,Instrument> entry : hmapInstrument.entrySet())
         {
             //affichage de la cle
-            System.out.println("Instrument " + entry.getKey());
+            System.out.println(entry.getKey());
             
             //affichage du nombre total de fonds
             instrument = entry.getValue();
@@ -72,17 +72,17 @@ public class Affichage {
     
     public void afficherPourcentage(String key, Portefeuille wallet)
     {
-        ArrayList<Double> pourcentage = new ArrayList<>();
-        int nbInstruTotal = wallet.getHmapInstru().size();
-        System.out.println("Le nombre total d'instruments dans la map est de " + nbInstruTotal + ".");
+        double pourcentage ;
         
         try {
             Fonds fonds = wallet.rechercheFonds(key);
-       
-            for(int i = 0 ; i < nbInstruTotal ; i++)
+           
+            for (HashMap.Entry<String,Instrument> entry : wallet.getHmapInstru().entrySet())
             {
-                Instrument instru = wallet.getHmapInstru().get(i);
+                pourcentage = 0.0 ;
+                Instrument instru = entry.getValue();
                 ArrayList<Fonds> instruList = instru.getStringList();
+                
                 int somme = 0 ;
                 Boolean fondsPlace = false ;
                    
@@ -96,9 +96,10 @@ public class Affichage {
                 }
                   
                 if(fondsPlace && somme != 0) 
-                    pourcentage.add(fonds.getAmount()*100/somme) ;
-                  
-                System.out.println("Le pourcentage du fonds pour l'instrument " + instru.getKey() + " est de " + pourcentage.get(i));
+                    pourcentage = fonds.getAmount()*100/somme ;
+                
+                
+                System.out.println("Le pourcentage du fonds pour l'instrument " + instru.getKey() + " est de " + pourcentage );
             }
         } 
         catch (ExceptionExistence ex) {
