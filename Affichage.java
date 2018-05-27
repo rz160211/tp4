@@ -11,18 +11,31 @@ import java.util.*;
 
 /**
  *
- * @author Rim
+ * @author Rim, Camille
  */
 public class Affichage {
     
     public Affichage(){}
+    
+    
+    
+    /* Méthode d'affichage des fonds d'un instrument triés par montant */
+    
+    public void afficherTriFondsInstrument(Instrument instrument)
+    {
+        instrument.tri();
+        ArrayList<Fonds> fonds = instrument.getStringList();
+        for(int i = 0 ; i < fonds.size() ; i++)
+        {
+            System.out.println("Fonds " + fonds.get(i).getKey() + " de montant " + fonds.get(i).getAmount());
+        }
+    }
     
     /**
      *
      * @param hmapInstrument
      * @return 
      */
-    
     /*Une méthode qui affiche, pour chaque instrument, 
     sa clé, son nombre total de fonds et la somme totale des montants de ses fonds*/
     
@@ -57,29 +70,42 @@ public class Affichage {
         return list;
     }
     
-    public List<Double> afficherPourcentage(String key, Portefeuille wallet, List<Double> list)
+    public void afficherPourcentage(String key, Portefeuille wallet)
     {
-        double pourcentage;
-        List<Double> pourcentageList = new ArrayList<>();
+        ArrayList<Double> pourcentage = new ArrayList<>();
+        int nbInstruTotal = wallet.getHmapInstru().size();
         
         try {
-            Fonds walletValue = wallet.rechercheFonds(key);
-            double value= walletValue.getAmount();
-            
-            //le pourcentage de chaque instrument pour ce fonds avec resultat de afficherInstrument            
-            for(double amount : list){
-                pourcentage = amount/value;
-                pourcentageList.add(pourcentage);
+            Fonds fonds = wallet.rechercheFonds(key);
+       
+            for(int i = 0 ; i < nbInstruTotal ; i++)
+            {
+                Instrument instru = wallet.getHmapInstru().get(i);
+                ArrayList<Fonds> instruList = instru.getStringList();
+                int somme = 0 ;
+                Boolean fondsPlace = false ;
+                   
+                for(int j = 0 ; j < instruList.size() ; j++)
+                {
+                    somme += instruList.get(j).getAmount();
+                    if(instruList.get(j).getKey() == key)
+                    {
+                        fondsPlace = true;
+                    }
+                }
+                  
+                if(fondsPlace && somme != 0) 
+                    pourcentage.add(fonds.getAmount()*100/somme) ;
+                  
+                System.out.println("Le pourcentage du fonds pour l'instrument " + instru.getKey() + " est de " + pourcentage.get(i));
             }
+        } 
+        catch (ExceptionExistence ex) {
+            //ne exception est générée, message d'erreur
+            System.out.println(ex.getMessage());
             
-            
-        } catch (ExceptionExistence ex) {
-            //FondsInexistant est générée, message d'erreur
-            System.out.println("ERREUR 404: le fonds est inexistant.");
-
+                
         }
-        
-        return pourcentageList;
     }
     
     

@@ -5,36 +5,31 @@
  */
 package Modele;
 
+import java.util.Comparator;
+
 /**
  *
- * @author camille
+ * @author Rim, Camille
  */
-public class CompareFonds implements Comparable<Fonds> {
+
+//La classe CompareFonds implémente l'interface Comparator<Fonds> pour être utilisée dans la méthode de tri sort de Collections.
+public class CompareFonds implements Comparator<Fonds> {
     
-    private Fonds fonds ;
     
-    public CompareFonds(Fonds fonds)
-    {
-        this.fonds = fonds;
-    }
+    public CompareFonds() {}
   
-    public Boolean equals(Fonds fonds)
+    public Boolean equals(Fonds f1, Fonds f2)
     {
-        if(this.fonds.getAmount() == fonds.getAmount())
-        {
-            return true ;
-        }
-        else
-            return false ;
+        return f1.getAmount() == f2.getAmount();
     }
     
-    public @Override int compareTo(Fonds fonds)
+    public @Override int compare(Fonds f1, Fonds f2)
     {
-        if(this.fonds.getAmount() > fonds.getAmount())
+        if(f1.getAmount() > f2.getAmount())
         {
             return 1 ;
         }
-        if(this.fonds.equals(fonds))
+        if(equals(f1, f2))
         {
             return 0 ;
         }

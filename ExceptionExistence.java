@@ -7,7 +7,7 @@ package Controleur;
  
 /**
  *
- * @author camille
+ * @author Rim, Camille
  */
 public class ExceptionExistence extends Exception {
     public ExceptionExistence(String s) { super(s) ; }

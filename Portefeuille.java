@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author Rim
+ * @author Rim, Camille
  */
 public class Portefeuille {
     
@@ -26,22 +26,22 @@ public class Portefeuille {
         // si la cle existe 
         if (hmapFonds.containsKey(key)) {      
            // recuperer la valeur de la hmapFonds associÃ© Ã  la cle passÃ© en param
-           Fonds value = hmapFonds.get(key);  
-           return value;       
+           Fonds value = hmapFonds.get(key); 
+           return value ;
+           
        }
        else{
            throw new ExceptionExistence("Fonds inexistant"); 
        }
+        
     }
 
     public ArrayList<Fonds> rechercheInstrument(String key) throws ExceptionExistence {
 
-        Instrument collection = new Instrument();
-
         if (hmapInstrument.containsKey(key)) {
            // si la cle existe
            // recuperer la valeur de la hmapFonds associÃ© Ã  la cle passÃ© en param
-            collection = hmapInstrument.get(key);  
+            Instrument collection = hmapInstrument.get(key);  
             return collection.getStringList();       
         }
         else{
@@ -51,52 +51,83 @@ public class Portefeuille {
     }
 
     public void ajoutHmapFonds(String key, Fonds fonds){
-        hmapFonds.put(key, fonds);
+        try {
+            rechercheFonds(key);
+        }
+        catch(ExceptionExistence e)
+        {
+            System.out.println(e.getMessage());
+            hmapFonds.put(key, fonds);
+            System.out.println("Fonds " + key + " ajoute");
+        }
+    }
+    
+    public void ajoutHmapInstrument(String key, Instrument instru){
+        try {
+            rechercheInstrument(key);
+            
+        }
+        catch(ExceptionExistence e)
+        {
+            System.out.println(e.getMessage());
+            hmapInstrument.put(key, instru);
+            System.out.println("Instrument " + key + " ajoute");
+        }
+        
     }
 
     public void ajoutFondsInstrument(String cle, Fonds fonds) 
     {
         try {
-            if(rechercheInstrument(cle) != null)
-            {
-                 Instrument instru = hmapInstrument.get(cle) ;
-                 instru.ajoutFonds(fonds);
-            }
+            rechercheInstrument(cle);
+            Instrument instru = hmapInstrument.get(cle) ;
+            instru.ajoutFonds(fonds);
+            System.out.println("Fonds " + fonds.getKey() + "ajoute a l'instrument " + instru.getKey());
         }
         catch(ExceptionExistence e)
         {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage());              
         }
 
 
     }
 
-    public void supprimerHmapFond(String cle) 
+    public void supprimerHmapFonds(String cle) 
     {
         try {
-            if(rechercheFonds(cle) != null)
-            {
-                hmapFonds.remove(cle);
-            }
+            rechercheFonds(cle);
+            hmapFonds.remove(cle);
+            System.out.println("Fonds " + cle + " supprime de la HashMap.");
         }
         catch(ExceptionExistence e)
         {
             System.out.println(e.getMessage());
+           
         }
     }
 
     public void supprimerHmapInstrument(String cle) 
     {
         try {
-            if(rechercheInstrument(cle) != null)
+            rechercheInstrument(cle);
+            ArrayList<Fonds> instrument = hmapInstrument.get(cle).getStringList();
+            for(int i = 0 ; i < instrument.size() ; i++)
             {
-                hmapInstrument.remove(cle);
+                instrument.remove(i);
             }
+            hmapInstrument.remove(cle);
+            System.out.println("Instrument " + cle + " supprime de la HashMap.");
         }
         catch(ExceptionExistence e)
         {
             System.out.println(e.getMessage());
+            
         }
+    }
+    
+    public HashMap<String,Instrument> getHmapInstru()
+    {
+        return this.hmapInstrument;
     }
 
 }

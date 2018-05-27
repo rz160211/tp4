@@ -7,7 +7,7 @@ package Modele;
 
 /**
  *
- * @author Rim
+ * @author Rim, Camille
  */
 public class Fonds {
     
@@ -41,4 +41,3 @@ public class Fonds {
     }
        
 }
-
