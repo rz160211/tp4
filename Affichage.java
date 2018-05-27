@@ -50,7 +50,7 @@ public class Affichage {
         for (HashMap.Entry<String,Instrument> entry : hmapInstrument.entrySet())
         {
             //affichage de la cle
-            System.out.println(entry.getKey() + "/" + entry.getValue());
+            System.out.println("Instrument " + entry.getKey());
             
             //affichage du nombre total de fonds
             instrument = entry.getValue();
@@ -74,6 +74,7 @@ public class Affichage {
     {
         ArrayList<Double> pourcentage = new ArrayList<>();
         int nbInstruTotal = wallet.getHmapInstru().size();
+        System.out.println("Le nombre total d'instruments dans la map est de " + nbInstruTotal + ".");
         
         try {
             Fonds fonds = wallet.rechercheFonds(key);

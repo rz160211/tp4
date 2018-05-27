@@ -27,10 +27,10 @@ public class TestPortefeuille {
         Si l’exception FondsInexistant est générée, instancier et ajouter le fonds à la HashMap des fonds ; 
         sinon générer l’exception Fonds 
         */
-        
-        System.out.println("Entrez le nom du fonds");
+        System.out.println("======== RECHERCHE FONDS ========");
+        System.out.println("Entrez le nom du fonds :");
         String keyF = sc.nextLine();
-        System.out.println("Entrez le montant du fonds");
+        System.out.println("Entrez le montant du fonds :");
         double amount = sc.nextDouble();
         
         Fonds fonds = new Fonds(keyF, amount);
@@ -46,26 +46,27 @@ public class TestPortefeuille {
         Appeler la méthode de la question 1.2 pour ajouter le nouveau fonds dans la collection de l’instrument.
         */
         
-        System.out.println("Entrez le nom de l'instrument");
+        System.out.println("======== RECHERCHE INSTRUMENT ========");
+        System.out.println("Entrez le nom de l'instrument :");
         String keyI = sc.nextLine();
         
         Instrument instru = new Instrument(keyI);
-       
-        sc.nextLine();
         
         wallet.ajoutHmapInstrument(keyI, instru);
         wallet.ajoutFondsInstrument(keyI, fonds);
         
         /* Tester les méthodes de suppression de fonds et d'instrument */
         
-        System.out.println("Entrez le nom du fonds à supprimer");
+        System.out.println("=========  SUPPRESSION FONDS  =========");        
+        System.out.println("Entrez le nom du fonds à supprimer :");
         String keySuppF = sc.nextLine();
         
         wallet.supprimerHmapFonds(keySuppF);
         
         sc.nextLine() ;
         
-        System.out.println("Entrez le nom de l'instrument à supprimer");
+        System.out.println("======== SUPPRESSION INSTRUMENT ========"); 
+        System.out.println("Entrez le nom de l'instrument à supprimer :");
         String keySuppI = sc.nextLine();
         
         wallet.supprimerHmapInstrument(keySuppI);
@@ -73,14 +74,15 @@ public class TestPortefeuille {
         sc.nextLine();
         
         /* Testez votre tri en affichant dans la « Vue » les fonds d’un instrument, triés par montant. */
-        System.out.println("Entrez la cle de l'instrument a trier");
+        System.out.println("======== TRI INSTRUMENT ========");
+        System.out.println("Entrez la clé de l'instrument à trier :");
         String keyInstruTri = sc.nextLine();
         
         Instrument aTrier = new Instrument(keyInstruTri) ;
         
         sc.nextLine();
         
-        System.out.println("Entrez le nombre de fonds à placer dans l'instrument");
+        System.out.println("Entrez le nombre de fonds à placer dans l'instrument :");
         int nb = sc.nextInt();
 
         for(int i=0 ; i < nb ; i++)
@@ -99,10 +101,12 @@ public class TestPortefeuille {
         
         /* Tester les méthodes de la vue */
         
+        System.out.println("======== AFFICHER INSTRUMENT ========");
         System.out.println(display.afficherInstrument(wallet.getHmapInstru()));
         
         sc.nextLine() ;
         
+        System.out.println("======== AFFICHER POURCENTAGE FONDS ========");
         System.out.println("Entrez la cle d'un fonds") ;
         String keyPourcent = sc.nextLine();
         
@@ -110,4 +114,3 @@ public class TestPortefeuille {
     }
     
 }
-

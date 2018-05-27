@@ -20,6 +20,7 @@ public class Instrument {
     
     public Instrument(String key){
         this.key = key ;
+        this.instrument = new ArrayList<Fonds>();
     }
     
     public ArrayList<Fonds> getStringList() {
